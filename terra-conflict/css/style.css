@@ -1,0 +1,168 @@
+/* ============================================================
+   Terra Conflict: Global Warfare — styles.css
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --accent:   #ff5c00;
+  --bg:       #020408;
+  --text:     #e0e0e8;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Rajdhani', 'Courier New', monospace;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ── Page wrapper ────────────────────────────────────────── */
+#game-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: radial-gradient(ellipse at center, #06080f 0%, #020408 100%);
+}
+
+/* ── Canvas ──────────────────────────────────────────────── */
+#game-canvas {
+  display: block;
+  cursor: crosshair;
+  border: 2px solid rgba(255, 92, 0, 0.4);
+  box-shadow:
+    0 0 0 1px rgba(255,92,0,0.15),
+    0 0 40px rgba(255,92,0,0.15),
+    0 0 80px rgba(0,0,0,0.8),
+    inset 0 0 60px rgba(0,0,0,0.4);
+  border-radius: 4px;
+  /* Scale canvas to fit smaller screens */
+  max-width: 100vw;
+  max-height: calc(100vh - 60px);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Anti-alias for modern displays */
+@media (min-resolution: 1.5dppx) {
+  #game-canvas {
+    image-rendering: auto;
+  }
+}
+
+/* ── Top bar ─────────────────────────────────────────────── */
+#top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 900px;
+  max-width: 100vw;
+  padding: 6px 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.08em;
+}
+
+#top-bar .logo {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 10px rgba(255,92,0,0.5);
+}
+
+#top-bar .controls-hint {
+  font-size: 10px;
+  color: rgba(255,255,255,0.2);
+}
+
+/* ── Bottom bar ──────────────────────────────────────────── */
+#bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 900px;
+  max-width: 100vw;
+  padding: 5px 12px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.04em;
+}
+
+/* ── Responsive scaling ──────────────────────────────────── */
+@media (max-width: 960px) {
+  #game-canvas, #top-bar, #bottom-bar {
+    width: 100vw;
+  }
+  #game-canvas {
+    max-height: calc(100vh - 80px);
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
+}
+
+@media (max-height: 640px) {
+  #top-bar, #bottom-bar { display: none; }
+  #game-canvas { max-height: 100vh; border: none; border-radius: 0; }
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #050810; }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+/* ── Prevent tap highlight on mobile ────────────────────── */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* ── Loading state ───────────────────────────────────────── */
+#loading {
+  position: fixed; inset: 0;
+  background: #020408;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+#loading.done { opacity: 0; pointer-events: none; }
+
+#loading .loading-title {
+  font-size: 28px; font-weight: 700;
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(255,92,0,0.6);
+  letter-spacing: 0.2em;
+}
+
+#loading .loading-bar-wrap {
+  width: 280px; height: 4px;
+  background: rgba(255,92,0,0.15);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+#loading .loading-bar {
+  height: 100%;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(255,92,0,0.6);
+  border-radius: 2px;
+  animation: loadAnim 1.2s ease-in-out forwards;
+}
+
+@keyframes loadAnim {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+#loading .loading-text {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.1em;
+}

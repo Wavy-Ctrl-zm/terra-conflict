@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Terra Conflict: Global Warfare — Tactical top-down shooter across 3 global maps." />
+  <title>Terra Conflict: Global Warfare</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Loading screen -->
+  <div id="loading">
+    <div class="loading-title">TERRA CONFLICT</div>
+    <div class="loading-bar-wrap">
+      <div class="loading-bar"></div>
+    </div>
+    <div class="loading-text">LOADING GLOBAL THEATRE...</div>
+  </div>
+
+  <!-- Game container -->
+  <div id="game-wrapper">
+
+    <div id="top-bar">
+      <span class="logo">TERRA CONFLICT: GLOBAL WARFARE</span>
+      <span class="controls-hint">WASD MOVE &nbsp;|&nbsp; MOUSE AIM &nbsp;|&nbsp; CLICK FIRE &nbsp;|&nbsp; R RELOAD &nbsp;|&nbsp; Q SWITCH &nbsp;|&nbsp; P PAUSE</span>
+    </div>
+
+    <canvas id="game-canvas"></canvas>
+
+    <div id="bottom-bar">
+      <span>v1.0 — 3 MAPS · 3 FACTIONS · WAVE COMBAT</span>
+      <span>AFRICA · NORTH AMERICA · EUROPE · ASIA · OCEANIA</span>
+    </div>
+
+  </div>
+
+  <!-- Load scripts in dependency order (no modules — works via file://) -->
+  <script src="js/config.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/entity.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/hud.js"></script>
+  <script src="js/game.js"></script>
+
+  <!-- Remove loading screen once canvas is ready -->
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var loader = document.getElementById('loading');
+        if (loader) loader.classList.add('done');
+        setTimeout(function() { if (loader) loader.remove(); }, 600);
+      }, 1400);
+    });
+  </script>
+
+</body>
+</html>
